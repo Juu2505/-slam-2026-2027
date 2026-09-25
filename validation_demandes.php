@@ -56,7 +56,7 @@ if (!$utilisateur["actif"])
 if(
     $demande["etat"] === "nouvelle")
     return true;
-)
+
 return $utilisateu["role"] === "administrateur" 
 ||
  $utilisateu["role"] === "gestionnaire" 
