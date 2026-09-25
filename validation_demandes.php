@@ -28,13 +28,16 @@ echo "Nombre total de demandes valides pour traitement: " . $compteur . "<br>";
 
 function peutValider(array $utilisateur, array $demande): bool 
 { 
-    return (
-        $demande["etat"] === "nouvelle"
-        && $utilisateur["actif"] === true
-        && ($utilisateur["role"] === "administrateur"
-        || ($utilisateur["role"] === "gestionnaire"
-        && $demande["montant"] <= 1000))
-    );
+    if (!$utilisateur["actif"]) {
+        return false;
+    }
+
+    if ($demande["etat"] !== "nouvelle") {
+        return false;
+    }
+
+    return $utilisateur["role"] === "administrateur" 
+        || ($utilisateur["role"] === "gestionnaire" && $demande["montant"] <= 1000);
 }
 function compterDemandesValidables(array $utilisateur, array $demandes): int 
 { 
