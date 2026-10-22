@@ -16,16 +16,20 @@ $compteur = 0;
 
 foreach ($demandes as $demande) {
     if (
-        $utilisateur["actif"]
-        && $demande["etat"] === "nouvelle"
-        && ($utilisateur["role"] === "admin" || ($utilisateur["role"] === "gestionnaire" && $demande["montant"] <= 1000))
+        $demande["etat"] === "nouvelle"
+        && $utilisateur["actif"]
+        && ($utilisateur["role"] === "administrateur"
+            || ($utilisateur["role"] === "gestionnaire"
+                && $demande["montant"] <= 1000))    
     ) {
         $compteur++;
+        echo "Demande ID: " . $demande["id"] . " est valide pour traitement.<br>";
+    } else {
+        echo "Demande ID: " . $demande["id"] . " n'est pas valide pour traitement.<br>";
     }
 }
 
-echo $compteur;
-
-
+echo "Nombre total de demandes valides pour traitement: " . $compteur . "<br>";
 
 ?>
+
